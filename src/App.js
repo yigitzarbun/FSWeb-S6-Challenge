@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Karakter from "./components/Karakter";
+import Arama from "./components/Arama";
 
 const App = () => {
-  // Try to think through what state you'll need for this app before starting. Then build out
-  // the state properties here.
+  const [data, setData] = useState([]);
+  const [expansion, setExpansion] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Fetch characters from the API in an effect hook. Remember, anytime you have a 
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
+  useEffect(() => {
+    axios
+      .get("https://swapi.dev/api/people/")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
+  function handleVisibility() {
+    expansion === false ? setExpansion(true) : setExpansion(false);
+  }
+
+  console.log(data);
   return (
     <div className="App">
-      <h1 className="Header">Karakterler</h1>
+      <h1 className="Header">Star Wars Characters</h1>
+      {/*<Arama setSearchTerm={setSearchTerm} searchTerm={searchTerm}></Arama>*/}
+      <input
+        onChange={(event) => setSearchTerm(event.target.value)}
+        placeholder="Search by Name"
+      ></input>
+      <Karakter
+        data={data}
+        visibility={handleVisibility}
+        expansion={expansion}
+        searchTerm={searchTerm}
+      />
     </div>
   );
-}
+};
 
 export default App;

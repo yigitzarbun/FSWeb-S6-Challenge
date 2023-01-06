@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 export default function (props) {
-  const { setSearchTerm, searchTerm, data } = props;
+  const { setSearchTerm, searchTerm } = props;
 
   const StyledSearchBar = styled.input`
     width: 30%;
@@ -23,6 +23,8 @@ export default function (props) {
         type="text"
         placeholder="Search by Name"
         onChange={(event) => setSearchTerm(event.target.value)}
+        value={searchTerm}
+        autoFocus
       ></StyledSearchBar>
     </div>
   );

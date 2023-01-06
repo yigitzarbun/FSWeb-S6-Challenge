@@ -5,7 +5,7 @@ import Arama from "./components/Arama";
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [expansion, setExpansion] = useState(false);
+  const [expansion, setExpansion] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -19,19 +19,15 @@ const App = () => {
       });
   }, []);
 
-  function handleVisibility() {
-    expansion === false ? setExpansion(true) : setExpansion(false);
+  function handleVisibility(name) {
+    setExpansion(name === expansion ? null : name);
   }
 
-  console.log(data);
   return (
     <div className="App">
       <h1 className="Header">Star Wars Characters</h1>
       {/*<Arama setSearchTerm={setSearchTerm} searchTerm={searchTerm}></Arama>*/}
-      <input
-        onChange={(event) => setSearchTerm(event.target.value)}
-        placeholder="Search by Name"
-      ></input>
+      <Arama searchTerm={searchTerm} setSearchTerm={setSearchTerm}></Arama>
       <Karakter
         data={data}
         visibility={handleVisibility}

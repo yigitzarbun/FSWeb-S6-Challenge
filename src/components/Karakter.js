@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Arama from "./Arama";
+import img from "../images/no_result-removebg-preview.png";
 export default function Karakter(props) {
   const { data, visibility, expansion, searchTerm } = props;
 
@@ -38,6 +39,11 @@ export default function Karakter(props) {
       color: black;
       border: none;
     }
+  `;
+
+  const StyledNoResult = styled.p`
+    color: white;
+    font-size: 1.2rem;
   `;
 
   const StyledExpandedData = styled.div`
@@ -82,7 +88,7 @@ export default function Karakter(props) {
       data.find((item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
       ) === undefined ? (
-        <p>No results</p>
+        <StyledNoResult>No results found</StyledNoResult>
       ) : null}
     </StyledAllCharactersContainer>
   );
